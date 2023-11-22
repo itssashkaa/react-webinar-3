@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
 import { useState } from 'react';
@@ -16,9 +16,15 @@ function App({store}) {
     store.selectItem(itemCode)
   }
 
-  window.addEventListener('click', (e) => {
-    handleSelect(e)
-  })
+  
+
+  useEffect(() => {
+    window.addEventListener('click', handleSelect)
+
+    return () => {
+      window.removeEventListener('click', handleSelect)
+    }
+  }, [])
 
   return (
     <div className='App'>
