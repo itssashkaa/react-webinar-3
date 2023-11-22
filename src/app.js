@@ -1,6 +1,7 @@
 import React from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
+import { useState } from 'react';
 
 /**
  * Приложение
@@ -8,8 +9,16 @@ import './styles.css';
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
   const list = store.getState().list;
+
+  const handleSelect = (e, itemCode = null) => {
+    e.stopPropagation();
+    store.selectItem(itemCode)
+  }
+
+  window.addEventListener('click', (e) => {
+    handleSelect(e)
+  })
 
   return (
     <div className='App'>
@@ -24,9 +33,10 @@ function App({store}) {
           list.map(item =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+                   onClick={(e) => handleSelect(e, item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{item.title}</div>
+                <div className='item-count'>{item.selectedCount > 0 && `Выделяли ${item.selectedCount} раз`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
