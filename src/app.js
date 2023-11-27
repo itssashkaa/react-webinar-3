@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import {createElement} from './utils.js';
 import './styles.css';
-import { useState } from 'react';
+import { formatPlural } from './utils';
 
 /**
  * Приложение
@@ -41,8 +40,7 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={(e) => handleSelect(e, item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                <div className='item-count'>{item.selectedCount > 0 && `Выделяли ${item.selectedCount} раз`}</div>
+                <div className='Item-title'>{item.title} {item.selectedCount > 0 && `| Выделяли ${item.selectedCount} ${formatPlural(item.selectedCount)}`}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

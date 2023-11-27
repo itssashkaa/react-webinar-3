@@ -26,3 +26,17 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function formatPlural(n) {
+  let remainder10 = n % 10;
+  let remainder100 = n % 100;
+
+  if (remainder10 === 1 && remainder100 !== 11) {
+      return `раз`;
+  } else if (remainder10 >= 2 && remainder10 <= 4 && (remainder100 < 10 || remainder100 >= 20)) {
+      return `раза`;
+  } else {
+      return `раз`;
+  }
+}
+

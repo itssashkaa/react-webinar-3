@@ -58,7 +58,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.nextMaxCode(), title: 'Новая запись', seletedCount: 0}]
+      list: [...this.state.list, {code: this.nextMaxCode(), title: 'Новая запись', selectedCount: 0}]
     })
   };
 
