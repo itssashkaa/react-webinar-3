@@ -83,6 +83,31 @@ class Store {
       })
     })
   }
+
+  addToCart(item) {
+    const currentItem = this.state.cart.find(cartItem => cartItem.code === item.code)
+
+    if (currentItem) {
+      const  newCart = this.state.cart.map(cartItem => cartItem.code === item.code ? {...cartItem, count: cartItem.count + 1} : cartItem)
+      this.setState({
+        ...this.state,
+        cart: newCart
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {...item, count: 1}]
+      })
+    }
+  }
+
+  removeFromCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
+    })
+  }
 }
 
 export default Store;

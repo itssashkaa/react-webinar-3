@@ -1,0 +1,32 @@
+.Cart {
+
+}
+
+.Cart__close-btn {
+    align-self: center;
+    margin-right: 20px;
+}
+
+.Cart-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.Cart__list {
+    margin-top: 70px;
+}
+
+.Cart__list_empty {
+    text-align: center;
+}
+
+.Cart__list__footer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 97px;
+}
+
+.Cart__list__footer__item {
+    padding: 20px 10px;
+    font-weight: 700;
+}

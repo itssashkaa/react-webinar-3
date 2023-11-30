@@ -1,5 +1,11 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
+}
+
+.Controls__text_strong {
+  font-weight: 700;
 }
