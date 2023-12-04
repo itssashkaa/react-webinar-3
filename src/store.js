@@ -84,6 +84,11 @@ class Store {
     })
   }
 
+  getCartInfo() {
+    const cartInfo = {items_count: this.state.cart.length, total_price: this.state.cart.reduce((price, item) => price += item.price, 0)}
+    return cartInfo;
+  }
+
   addToCart(item) {
     const currentItem = this.state.cart.find(cartItem => cartItem.code === item.code)
 

@@ -58,3 +58,14 @@ export function priceFormat(price) {
     minimumFractionDigits: 0
   })
 }
+
+export function disableScroll() {
+  const paddingRight = window.innerWidth - document.body.offsetWidth + 'px';
+  document.body.style.paddingRight = paddingRight;
+  document.body.classList.add('disable-scroll');
+}
+
+export function enableScroll() {
+  document.body.style.paddingRight = 0;
+  document.body.classList.remove('disable-scroll');
+}

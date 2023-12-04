@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { plural, priceFormat } from "../../utils";
 
-function Controls({setModal, cart}) {
-  const totalPrice = cart.reduce((price, item) => {
-    return price + item.count * item.price
-  }, 0);
-  const uniqItemsCount = cart.length;
+function Controls({setModal, cartInfo}) {
+  console.log(cartInfo);
   return (
     <div className='Controls'>
       <div className="Controls__text">
         В корзине:
-        <span className="Controls__text_strong"> {uniqItemsCount} {plural(uniqItemsCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {priceFormat(totalPrice)}</span>
+        <span className="Controls__text_strong"> 
+          {cartInfo.items_count === 0 
+           ? 'Пусто'
+           : `${cartInfo.items_count} ${plural(cartInfo.items_count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${priceFormat(cartInfo.total_price)}`
+           }
+          
+        </span>
       </div>
       <button onClick={() => setModal(true)}>Перейти</button>
     </div>
@@ -21,14 +24,18 @@ function Controls({setModal, cart}) {
 
 Controls.propTypes = {
   setModal: PropTypes.func,
-  cart: PropTypes.arrayOf(PropTypes.shape({
-    price: PropTypes.number,
-    count: PropTypes.number
-  })).isRequired,
+  cartInfo: PropTypes.shape({
+    items_count: PropTypes.number,
+    total_price: PropTypes.number
+  })
 };
 
 Controls.defaultProps = {
-  setModal: () => {}
+  setModal: () => {},
+  cartInfo: PropTypes.shape({
+    items_count: 0,
+    total_price: 0
+  })
 }
 
 export default React.memo(Controls);
