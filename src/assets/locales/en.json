@@ -1,0 +1,19 @@
+{
+  "title": "Shop",
+  "cart_title": "Cart",
+  "cart": "In cart",
+  "to_cart": "Go to cart",
+  "btn_add": "Add",
+  "btn_remove": "Remove",
+  "btn_close": "Close",
+  "total_price": "Total price",
+  "price": "Price",
+  "country": "Country",
+  "category": "Category",
+  "year": "Year",
+  "nav_main": "Main",
+  "empty": "empty",
+  "item": "item",
+  "few_items": "items",
+  "many_items": "items"
+}

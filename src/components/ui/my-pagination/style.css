@@ -1,0 +1,26 @@
+.MyPagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.MyPagination__item {
+    padding: 3px 7px;
+    cursor: pointer;
+}
+
+.MyPagination__item:hover {
+    background-color: #E1E1E1;
+    color: black;
+}
+
+.MyPagination__item_active {
+    background-color: #0087E9;
+    color: white;
+}
+
+.MyPagination__item_empty {
+    user-select: none;
+    color: #CCCCCC;
+}

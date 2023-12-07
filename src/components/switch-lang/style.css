@@ -1,0 +1,17 @@
+.SwitchLang {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+
+.SwitchLang__item {
+    cursor: pointer;
+}
+
+.SwitchLang__item_active {
+    border-bottom: 1px solid black;
+    font-weight: 700;
+}
