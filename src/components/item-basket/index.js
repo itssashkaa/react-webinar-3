@@ -19,13 +19,17 @@ function ItemBasket(props) {
   };
 
   function closeModal () {
-    store.actions.modal.close();
+    store.actions.modals.close();
   }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link className={cn('title')} to={`/list/${props.item._id}`} onClick={closeModal}>{props.item.title}</Link>
+      <Link to={`/list/${props.item._id}`} className={cn('title')}>
+        <div onClick={closeModal}>
+          {props.item.title}
+        </div>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
