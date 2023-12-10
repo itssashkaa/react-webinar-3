@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import useSelector from "../../store/use-selector";
 
-function Controls({onAdd}) {
-  const localeData = useSelector(state => state.locale.localeData)
+function Controls({onAdd, localeData}) {
   return (
     <div className='Controls'>
       <button onClick={() => onAdd()}>{localeData.btn_add}</button>
@@ -13,11 +12,13 @@ function Controls({onAdd}) {
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onAdd: PropTypes.func,
+  localeData: PropTypes.object
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onAdd: () => {},
+  localeData: {}
 }
 
 export default memo(Controls);

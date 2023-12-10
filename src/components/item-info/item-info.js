@@ -3,8 +3,7 @@ import { numberFormat } from "../../utils";
 import PropTypes from "prop-types";
 import "./style.css"
 
-function ItemInfo ({itemInfo, addToBasket}) {
-    const localeData = useSelector(state => state.locale.localeData)
+function ItemInfo ({itemInfo, addToBasket, localeData}) {
     return (
         <div className="ItemInfo">
             <div className="ItemInfo__desc">{itemInfo.description}</div>
@@ -42,7 +41,12 @@ ItemInfo.propTypes = {
       })
     }).isRequired,
     addToBasket: PropTypes.func,
+    localeData: PropTypes.object
 };
+
+ItemInfo.defaultProps = {
+    localeData: {}
+}
   
 
 export default ItemInfo

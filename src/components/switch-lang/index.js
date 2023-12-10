@@ -1,18 +1,12 @@
-import useSelector from "../../store/use-selector";
-import useStore from "../../store/use-store";
 import "./style.css";
+import PropTypes from "prop-types";
 
-function SwitchLang() {
-  const lang = useSelector(state => state.locale.lang);
-  const store = useStore();
+
+function SwitchLang({changeLang, lang}) {
   const languages = [
     { id: "en", lang: "English" },
     { id: "ru", lang: "Русский" },
   ];
-
-  function handleChangeLang(langId) {
-    store.actions.locale.setLocale(langId)
-  }
 
   return (
     <div className="SwitchLang">
@@ -23,7 +17,7 @@ function SwitchLang() {
             "SwitchLang__item" +
             (item.id === lang ? " SwitchLang__item_active" : "")
           }
-          onClick={() => handleChangeLang(item.id)}
+          onClick={() => changeLang(item.id)}
         >
           {item.lang}
         </div>
@@ -31,5 +25,15 @@ function SwitchLang() {
     </div>
   );
 }
+
+SwitchLang.propTypes = {
+  changeLang: PropTypes.func,
+  lang: PropTypes.string
+};
+
+SwitchLang.defaultProps = {
+  changeLang: () => {},
+  lang: 'ru'
+};
 
 export default SwitchLang;

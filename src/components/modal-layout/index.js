@@ -7,7 +7,6 @@ import useSelector from "../../store/use-selector";
 function ModalLayout(props) {
 
   const cn = bem('ModalLayout');
-  const localeData = useSelector(state => state.locale.localeData);
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
   const frame = useRef();
@@ -34,7 +33,7 @@ function ModalLayout(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
-          <button className={cn('close')} onClick={props.onClose}>{localeData.btn_close}</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.localeData.btn_close}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -48,11 +47,13 @@ ModalLayout.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  localeData: PropTypes.object
 };
 
 ModalLayout.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => {},
+  localeData: {}
 };
 
 export default memo(ModalLayout);

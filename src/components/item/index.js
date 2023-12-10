@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
-import useSelector from "../../store/use-selector";
 import { Link } from "react-router-dom";
 
 function Item(props) {
 
   const cn = bem('Item');
-  const localeData = useSelector(state => state.locale.localeData)
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
   }
@@ -22,7 +20,7 @@ function Item(props) {
       </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{localeData.btn_add}</button>
+        <button onClick={callbacks.onAdd}>{props.localeData.btn_add}</button>
       </div>
     </div>
   );
@@ -35,10 +33,12 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  localeData: PropTypes.object
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  localeData: {}
 }
 
 export default memo(Item);

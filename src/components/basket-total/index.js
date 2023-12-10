@@ -5,9 +5,8 @@ import {numberFormat} from "../../utils";
 import './style.css';
 import useSelector from "../../store/use-selector";
 
-function BasketTotal({sum}) {
+function BasketTotal({sum, localeData}) {
   const cn = bem('BasketTotal');
-  const localeData = useSelector(state => state.locale.localeData)
   return (
     <div className={cn()}>
       <span className={cn('cell')}>{localeData.total_price}</span>
@@ -18,11 +17,13 @@ function BasketTotal({sum}) {
 }
 
 BasketTotal.propTypes = {
-  sum: PropTypes.number
+  sum: PropTypes.number,
+  localeData: PropTypes.object
 };
 
 BasketTotal.defaultProps = {
-  sum: 0
+  sum: 0,
+  localeData: {}
 }
 
 export default memo(BasketTotal);

@@ -5,6 +5,7 @@
     justify-content: flex-start;
     gap: 20px;
     padding: 0 40px;
+    margin-top: 20px;
 }
 
 .ItemInfo__group {

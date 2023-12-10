@@ -3,13 +3,9 @@ import PropTypes from "prop-types";
 import Item from "../item";
 import "./style.css";
 import MyPagination from "../ui/my-pagination";
-import useStore from "../../store/use-store";
 
 function List({ list, renderItem, pagination}) {
   const isShowPagination = pagination.currentPage !== 0 && list.length > 0;
-  console.log(isShowPagination);
-  console.log(pagination);
-  const store = useStore();
 
   return (
     <div className="List">
