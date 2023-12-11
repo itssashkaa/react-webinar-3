@@ -9,7 +9,7 @@ function ItemInfo ({itemInfo, addToBasket, localeData}) {
             <div className="ItemInfo__desc">{itemInfo.description}</div>
             <div className="ItemInfo__group">
                 <div className="ItemInfo__group__title">{localeData.country}</div>
-                <div className="ItemInfo__group__desc">: {itemInfo.madeIn?.title}({itemInfo.madeIn?.code})</div>
+                <div className="ItemInfo__group__desc">: {itemInfo.madeIn?.title} ({itemInfo.madeIn?.code})</div>
             </div>
             <div className="ItemInfo__group">
                 <div className="ItemInfo__group__title">{localeData.category}</div>
