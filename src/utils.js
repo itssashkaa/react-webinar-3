@@ -33,3 +33,16 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function createCategoryTree (categories, parent = null, level = 0) {
+  const categoryTree = [];
+  
+  categories.forEach((category) => {
+    if ((category.parent && category.parent._id === parent) || (!category.parent && parent === null)) {
+      const children = createCategoryTree(categories, category._id, level + 1);
+      categoryTree.push({ ...category, title: '-'.repeat(level) + category.title}, ...children);
+    }
+  });
+
+  return categoryTree;
+}
