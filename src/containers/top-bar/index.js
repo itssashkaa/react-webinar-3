@@ -22,7 +22,7 @@ function TopBar() {
   };
 
   return (
-    <SideLayout side="end" padding="small">
+    <SideLayout side="end" padding="small" border="bottom">
       <Spinner active={user.wait}>
         <TopNav isAuth={!!user.isAuth} name={user.name} callback={callbacks.logout} t={t}/>
       </Spinner>

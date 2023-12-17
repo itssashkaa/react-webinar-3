@@ -40,7 +40,7 @@ export function createCategoryTree (categories, parent = null, level = 0) {
   categories.forEach((category) => {
     if ((category.parent && category.parent._id === parent) || (!category.parent && parent === null)) {
       const children = createCategoryTree(categories, category._id, level + 1);
-      categoryTree.push({ ...category, title: '-'.repeat(level) + category.title}, ...children);
+      categoryTree.push({ ...category, title: '- '.repeat(level) + category.title}, ...children);
     }
   });
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
 import LocaleSelect from "../../containers/locale-select";
@@ -8,14 +8,13 @@ import useTranslate from "../../hooks/use-translate";
 import Form from "../../components/form";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
-import Spinner from "../../components/spinner";
 
 function Login() {
   const { t } = useTranslate();
   const [form, setForm] = useState({ login: "", password: "" });
   const store = useStore();
   const select = useSelector(state => ({
-    error: state.user.error,
+    errors: state.user.errors,
     wait: state.user.wait
   }))
 
@@ -45,6 +44,10 @@ function Login() {
     },
   };
 
+  useEffect(() => {
+    return store.actions.user.clearErrors();
+  }, [store])
+
   return (
     <PageLayout>
       <TopBar />
@@ -57,7 +60,7 @@ function Login() {
         title={t("login")}
         buttonTitle={t('login')}
         onSubmit={callbacks.onLogin}
-        error={t(select.error)}
+        errors={t(select.errors)}
     />     
     </PageLayout>
   );

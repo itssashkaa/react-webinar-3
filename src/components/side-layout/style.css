@@ -3,8 +3,6 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   padding: 0;
-  margin-left: -5px;
-  margin-right: -5px;
   align-items: center;
 }
 
@@ -22,6 +20,10 @@
 
 .SideLayout_padding_small {
   padding: 10px;
+}
+
+.SideLayout_border_bottom {
+  border-bottom: 1px solid #CCC;
 }
 
 .SideLayout_padding_medium {

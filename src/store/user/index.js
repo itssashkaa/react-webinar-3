@@ -7,11 +7,16 @@ class User extends StoreModule {
       token: null,
       isAuth: null,
       name: '',
-      email: '',
-      phone: '',
-      error: '',
+      errors: [],
       wait: false
     }
+  }
+
+  clearErrors () {
+    this.setState({
+      ...this.getState(),
+      errors: []
+    })
   }
 
   initUser () {
@@ -76,12 +81,13 @@ class User extends StoreModule {
           name: json.result.user.profile.name,
           token: json.result.token,
           isAuth: true,
-          error: ''
+          errors: []
         })
       } else {
+        console.log(json);
         this.setState({
           ...this.getState(),
-          error: json.error.code.toLowerCase()
+          errors: [...json.error.data.issues]
         })
       }
     }))
@@ -112,8 +118,6 @@ class User extends StoreModule {
           token: '',
           isAuth: false,
           name: '',
-          email: '',
-          phone: '',
           error: '',
           wait: false
         })
@@ -122,44 +126,6 @@ class User extends StoreModule {
     })
     .catch(error => {
       console.error(error)
-    })
-  }
-
-  getUserData () {
-    this.setState({
-      ...this.getState(),
-      wait: true
-    })
-    fetch('/api/v1/users/self?fields=*',{
-      method: 'GET',
-      headers: {
-        'X-Token': localStorage.getItem('token'),
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(resp => resp.json())
-    .then(json => {
-      console.log('resp', json);
-      if(!json.error){
-        this.setState({
-          ...this.getState(),
-          name: json.result.profile.name,
-          email: json.result.email,
-          phone: json.result.profile.phone,      
-        })
-      } else if(json.error.code === "Forbidden") { 
-        this.logout();
-        throw new Error (json.error.message);
-      }
-    })
-    .catch(error => {
-      console.error(error)
-    })
-    .finally(() => {
-      this.setState({
-        ...this.getState(),
-        wait: false
-      })
     })
   }
 }

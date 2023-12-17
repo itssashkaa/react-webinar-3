@@ -13,13 +13,13 @@ function Profile () {
     const { t } = useTranslate();
     const store = useStore();
     const select = useSelector((state) => ({
-        userName: state.user.name,
-        userEmail: state.user.email,
-        userPhone: state.user.phone
+        userName: state.profile.profileName,
+        userEmail: state.profile.email,
+        userPhone: state.profile.phone
     }))
 
     useEffect(() => {
-        store.actions.user.getUserData();
+        store.actions.profile.getUserData();
     }, [])
 
     return (

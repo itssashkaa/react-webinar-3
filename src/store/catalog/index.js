@@ -42,17 +42,6 @@ class CatalogState extends StoreModule {
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
-  initCategories() {
-    fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*')
-    .then(resp => resp.json())
-    .then(json => {
-      this.setState({
-        ...this.getState(),
-        categories: json.result.items
-      });
-    })
-  }
-
   /**
    * Сброс параметров к начальным
    * @param [newParams] {Object} Новые параметры

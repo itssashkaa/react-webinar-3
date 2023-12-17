@@ -13,7 +13,9 @@ function Form (props) {
                 {props.fields.map((field, index) => (
                     <FormInput {...field} key={index}/>
                 ))}
-                {props.error && <div className={cn('error')}>{props.error}</div>}
+                {props.errors && props.errors.map((error, index) => (
+                    <div className={cn('error')} key={index}>{error.message}</div>
+                ))}
                 <button>{props.buttonTitle}</button>
             </form>  
         </div>

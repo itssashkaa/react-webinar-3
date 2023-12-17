@@ -32,7 +32,7 @@ function App() {
         <Route
           path={"/login"}
           element={
-            <ProtectedRoute isAllowed={!select.isAuth} redirectPath={"/"}>
+            <ProtectedRoute isAllowed={!select.isAuth} wait={select.isAuth === null} redirectPath={"/"}>
               <Login />
             </ProtectedRoute>
           }
@@ -40,7 +40,7 @@ function App() {
         <Route
           path={"/profile"}
           element={
-            <ProtectedRoute isAllowed={select.isAuth !== null && select.isAuth} redirectPath={"/login"}>
+            <ProtectedRoute isAllowed={select.isAuth !== null && select.isAuth} wait={select.isAuth === null} redirectPath={"/login"}>
               <Profile />
             </ProtectedRoute>
           }

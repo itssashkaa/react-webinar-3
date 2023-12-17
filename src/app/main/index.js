@@ -22,7 +22,7 @@ function Main() {
   }, [], true);
 
   useInit(() => {
-    store.actions.catalog.initCategories();
+    store.actions.categories.initCategories();
   }, [], true);
 
   const {t} = useTranslate();
