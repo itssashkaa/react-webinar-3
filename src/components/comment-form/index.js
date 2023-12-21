@@ -24,7 +24,7 @@ CommentForm.propTypes = {
     setCommentText: PropTypes.func,
     isReply: PropTypes.bool,
     closeReply: PropTypes.func,
-    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     type: PropTypes.string.isRequired
 };
 
@@ -34,7 +34,6 @@ CommentForm.defaultProps = {
     setCommentText: () => {},
     isReply: false,
     closeReply: () => {},
-    parentId: ''
 }
 
 export default memo(CommentForm)

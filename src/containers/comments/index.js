@@ -10,17 +10,18 @@ import useInit from "../../hooks/use-init";
 import shallowEqual from "shallowequal";
 import CommentForm from "../../components/comment-form";
 import dateFormat from "../../utils/date-format";
+import useSelectorCustom from '../../hooks/use-selector';
 
 function Comments() {
   const params = useParams();
   const dispatch = useDispatch();
   const [commentText, setCommentText] = useState("");
-  const [selectedComment, setSelectedComment] = useState(params._id);
+  const [selectedComment, setSelectedComment] = useState(params.id);
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
   }, [params.id]);
-
+  const user = useSelectorCustom(state  => state.session.user,)
   const select = useSelector(
     (state) => ({
       waiting: state.comments.waiting,
@@ -41,10 +42,13 @@ function Comments() {
   const callbacks = {
     // Добавление в корзину
     addComment: useCallback((text, parentId, type) => {
-      dispatch(commentsActions.postComment(text, parentId, type));
-    }, []),
+      console.log('text', text);
+      console.log('id', parentId);
+      console.log('type', type);
+      dispatch(commentsActions.postComment(text, parentId, type, user.profile?.name));
+    }, [user]),
     closeReply: useCallback(() => {
-      setSelectedComment(params._id);
+      setSelectedComment(params.id);
     }, [params]),
   };
 
@@ -58,7 +62,7 @@ function Comments() {
         setCommentText={(e) => setCommentText(e.target.value)}
         selectedComment={selectedComment}
         setSelectedComment={setSelectedComment}
-        parentId={params._id}
+        parentId={params.id}
         closeReply={callbacks.closeReply}
       />
     </Spinner>

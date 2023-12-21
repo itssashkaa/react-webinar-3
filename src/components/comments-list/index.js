@@ -26,7 +26,7 @@ function CommentsList(props) {
           />
         ))}
       </div>
-      {props.selectedComment === props.parentId && (
+      {props.selectedComment == props.parentId && (
         <CommentForm
           callback={props.addComment}
           commentText={props.commentText}
@@ -47,7 +47,7 @@ CommentsList.propTypes = {
   setSelectedComment: PropTypes.func,
   commentText: PropTypes.string,
   setCommentText: PropTypes.func,
-  parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   closeReply: PropTypes.func
 };
 
