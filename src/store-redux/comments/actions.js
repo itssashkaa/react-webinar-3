@@ -26,8 +26,8 @@ export default {
     };
   },
   postComment: (text, parentId, type, user) => {
+    console.log(user);
     return async (dispatch, getState, services) => {
-      console.log("zxc");
       dispatch({ type: "comments/load-start" });
       try {
         const res = await services.api.request({
@@ -45,7 +45,6 @@ export default {
             },
           }),
         });
-        console.log(res.data);
         dispatch({
           type: "comments/post-success",
           payload: {

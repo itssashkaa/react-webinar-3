@@ -21,7 +21,11 @@ function Comments() {
   useInit(() => {
     dispatch(commentsActions.load(params.id));
   }, [params.id]);
-  const user = useSelectorCustom(state  => state.session.user,)
+  const selectCustom = useSelectorCustom(state => ({
+    user: state.session.user,
+    exists: state.session.exists,
+  }));
+  console.log(selectCustom.user);
   const select = useSelector(
     (state) => ({
       waiting: state.comments.waiting,
@@ -42,11 +46,8 @@ function Comments() {
   const callbacks = {
     // Добавление в корзину
     addComment: useCallback((text, parentId, type) => {
-      console.log('text', text);
-      console.log('id', parentId);
-      console.log('type', type);
-      dispatch(commentsActions.postComment(text, parentId, type, user.profile?.name));
-    }, [user]),
+      dispatch(commentsActions.postComment(text, parentId, type, selectCustom.user.profile?.name));
+    }, [selectCustom.user]),
     closeReply: useCallback(() => {
       setSelectedComment(params.id);
     }, [params]),
@@ -64,6 +65,7 @@ function Comments() {
         setSelectedComment={setSelectedComment}
         parentId={params.id}
         closeReply={callbacks.closeReply}
+        isAuth={selectCustom.exists}
       />
     </Spinner>
   );

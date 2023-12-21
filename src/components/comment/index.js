@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./style.css";
 import { memo } from "react";
 import CommentForm from "../comment-form";
+import CommentNotLogin from "../comment-not-login";
 
 function Comment(props) {
   const cn = bem("Comment");
@@ -26,6 +27,7 @@ function Comment(props) {
         Ответить
       </div>
       {props.isSelected && (
+        props.isAuth ?
         <CommentForm
           callback={props.addComment}
           commentText={props.commentText}
@@ -35,6 +37,8 @@ function Comment(props) {
           isReply={true}
           closeReply={props.closeReply}
         />
+        :
+        <CommentNotLogin isReply={true} closeReply={props.closeReply}/>
       )}
     </div>
   );
@@ -62,13 +66,15 @@ Comment.propTypes = {
   addComment: PropTypes.func,
   commentText: PropTypes.string,
   setCommentText: PropTypes.func,
-  closeReply: PropTypes.func.isRequired
+  closeReply: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool
 };
 
 Comment.defaultProps = {
   addComment: () => {},
   commentText: '',
   setCommentText: () => {},
+  isAuth: false
 };
 
 export default memo(Comment);

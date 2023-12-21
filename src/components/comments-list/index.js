@@ -4,10 +4,14 @@ import "./style.css";
 import { memo, useState } from "react";
 import Comment from "../comment";
 import CommentForm from "../comment-form";
+import CommentNotLogin from "../comment-not-login";
 
 function CommentsList(props) {
   const cn = bem("CommentsList");
   
+  const renderItem = () => {
+
+  }
 
   return (
     <div className={cn()}>
@@ -23,17 +27,21 @@ function CommentsList(props) {
             setCommentText={props.setCommentText}
             setSelectedComment={props.setSelectedComment}
             closeReply={props.closeReply}
+            isAuth={props.isAuth}
           />
         ))}
       </div>
       {props.selectedComment == props.parentId && (
-        <CommentForm
+        props.isAuth 
+          ? <CommentForm
           callback={props.addComment}
           commentText={props.commentText}
           setCommentText={props.setCommentText}
           type={'article'}
           parentId={props.parentId}
         />
+        : <CommentNotLogin />
+        
       )}
     </div>
   );
@@ -48,7 +56,8 @@ CommentsList.propTypes = {
   commentText: PropTypes.string,
   setCommentText: PropTypes.func,
   parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  closeReply: PropTypes.func
+  closeReply: PropTypes.func,
+  isAuth: PropTypes.bool
 };
 
 CommentsList.defaultProps = {
@@ -57,7 +66,8 @@ CommentsList.defaultProps = {
   addComment: () => {},
   commentText: '',
   setCommentText: () => {},
-  closeReply: () => {}
+  closeReply: () => {},
+  isAuth: false
 };
 
 export default memo(CommentsList);
