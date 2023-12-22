@@ -23,11 +23,10 @@ function CommentsList(props) {
             comment={comment}
             addComment={props.addComment}
             isSelected={props.selectedComment === comment._id}
-            commentText={props.commentText}
-            setCommentText={props.setCommentText}
             setSelectedComment={props.setSelectedComment}
             closeReply={props.closeReply}
             isAuth={props.isAuth}
+            onSignIn={props.onSignIn}
           />
         ))}
       </div>
@@ -40,7 +39,7 @@ function CommentsList(props) {
           type={'article'}
           parentId={props.parentId}
         />
-        : <CommentNotLogin />
+        : <CommentNotLogin onSignIn={props.onSignIn}/>
         
       )}
     </div>
@@ -53,21 +52,19 @@ CommentsList.propTypes = {
   addComment: PropTypes.func,
   selectedComment: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setSelectedComment: PropTypes.func,
-  commentText: PropTypes.string,
-  setCommentText: PropTypes.func,
   parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   closeReply: PropTypes.func,
-  isAuth: PropTypes.bool
+  isAuth: PropTypes.bool,
+  onSignIn: PropTypes.func
 };
 
 CommentsList.defaultProps = {
   comments: [],
   count: 0,
   addComment: () => {},
-  commentText: '',
-  setCommentText: () => {},
   closeReply: () => {},
-  isAuth: false
+  isAuth: false,
+  onSignIn: () => {}
 };
 
 export default memo(CommentsList);

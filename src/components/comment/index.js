@@ -7,7 +7,7 @@ import CommentNotLogin from "../comment-not-login";
 
 function Comment(props) {
   const cn = bem("Comment");
-
+  console.log(props.comment);
   return (
     <div
       className={cn()}
@@ -32,13 +32,13 @@ function Comment(props) {
           callback={props.addComment}
           commentText={props.commentText}
           setCommentText={props.setCommentText}
-          parentId={props.parentId}
+          parentId={props.comment._id}
           type={'comment'}
           isReply={true}
           closeReply={props.closeReply}
         />
         :
-        <CommentNotLogin isReply={true} closeReply={props.closeReply}/>
+        <CommentNotLogin isReply={true} closeReply={props.closeReply} onSignIn={props.onSingIn}/>
       )}
     </div>
   );
@@ -64,17 +64,15 @@ Comment.propTypes = {
   setSelectedComment: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   addComment: PropTypes.func,
-  commentText: PropTypes.string,
-  setCommentText: PropTypes.func,
   closeReply: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool
+  isAuth: PropTypes.bool,
+  onSignIn: PropTypes.func
 };
 
 Comment.defaultProps = {
   addComment: () => {},
-  commentText: '',
-  setCommentText: () => {},
-  isAuth: false
+  isAuth: false,
+  onSignIn: () => {}
 };
 
 export default memo(Comment);

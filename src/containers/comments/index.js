@@ -4,7 +4,7 @@ import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import Spinner from "../../components/spinner";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import commentsActions from "../../store-redux/comments/actions";
 import useInit from "../../hooks/use-init";
 import shallowEqual from "shallowequal";
@@ -15,8 +15,9 @@ import useSelectorCustom from '../../hooks/use-selector';
 function Comments() {
   const params = useParams();
   const dispatch = useDispatch();
-  const [commentText, setCommentText] = useState("");
+  const navigate = useNavigate();
   const [selectedComment, setSelectedComment] = useState(params.id);
+  const location = useLocation();
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -47,10 +48,14 @@ function Comments() {
     // Добавление в корзину
     addComment: useCallback((text, parentId, type) => {
       dispatch(commentsActions.postComment(text, parentId, type, selectCustom.user.profile?.name));
+      callbacks.closeReply();
     }, [selectCustom.user]),
     closeReply: useCallback(() => {
       setSelectedComment(params.id);
     }, [params]),
+    onSignIn: useCallback(() => {
+      navigate('/login', {state: {back: location.pathname}});
+    }, [location.pathname]),
   };
 
   return (
@@ -59,13 +64,12 @@ function Comments() {
         comments={sortedComments}
         count={select.count}
         addComment={callbacks.addComment}
-        commentText={commentText}
-        setCommentText={(e) => setCommentText(e.target.value)}
         selectedComment={selectedComment}
         setSelectedComment={setSelectedComment}
         parentId={params.id}
         closeReply={callbacks.closeReply}
         isAuth={selectCustom.exists}
+        onSignIn={callbacks.onSignIn}
       />
     </Spinner>
   );
