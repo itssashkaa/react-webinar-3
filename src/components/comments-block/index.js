@@ -26,12 +26,12 @@ function CommentsBlock (props) {
             {props.selectedComment == props.parentId && (
                 props.isAuth 
                 ? <CommentForm
-                callback={props.addComment}
-                commentText={props.commentText}
-                setCommentText={props.setCommentText}
-                type={'article'}
-                parentId={props.parentId}
-                />
+                        callback={props.addComment}
+                        commentText={props.commentText}
+                        setCommentText={props.setCommentText}
+                        type={'article'}
+                        parentId={props.parentId}
+                    />
                 : <CommentNotLogin onSignIn={props.onSignIn}/>   
             )}
         </div>

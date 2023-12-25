@@ -1,10 +1,8 @@
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import { memo, useState } from "react";
+import { memo } from "react";
 import Comment from "../comment";
-import CommentForm from "../comment-form";
-import CommentNotLogin from "../comment-not-login";
 
 function CommentsList(props) {
   const cn = bem("CommentsList");
@@ -23,6 +21,7 @@ function CommentsList(props) {
             onSignIn={props.onSignIn}
             currentUserId={props.currentUserId}
             selectedComment={props.selectedComment}
+            level={props.level}
           />
         ))}
       </div>
@@ -40,6 +39,7 @@ CommentsList.propTypes = {
   isAuth: PropTypes.bool,
   onSignIn: PropTypes.func,
   currentUserId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  level: PropTypes.number
 };
 
 CommentsList.defaultProps = {
@@ -49,6 +49,7 @@ CommentsList.defaultProps = {
   isAuth: false,
   onSignIn: () => {},
   currentUserId: '',
+  level: 0
 };
 
 export default memo(CommentsList);

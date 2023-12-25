@@ -9,7 +9,8 @@ import CommentNotLogin from "../comment-not-login";
 
 function Comment(props) {
   const cn = bem("Comment");
-  const dateCreate = props.comment.dateCreate ? dateFormat(props.comment.dateCreate) : ""
+  const dateCreate = props.comment.dateCreate ? dateFormat(props.comment.dateCreate) : "";
+  const paddingLeft = props.level < 7 ? '30px' : '0';
   return (
     <div
       className={cn()}
@@ -28,7 +29,7 @@ function Comment(props) {
         Ответить
       </div>
       {!!props.comment.children?.length && (
-        <div className={cn("replyes")}>
+        <div className={cn("replyes")} style={{paddingLeft: paddingLeft}}>
           <CommentsList 
             comments={props.comment.children}
             addComment={props.addComment}
@@ -40,6 +41,7 @@ function Comment(props) {
             currentUserId={props.currentUserId}
             isReplyes={true}
             selectedComment={props.selectedComment}
+            level={props.level + 1}
           />
         </div>       
       )}
@@ -86,6 +88,7 @@ Comment.propTypes = {
   currentUserId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   replyes: PropTypes.array,
   selectedComment: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  level: PropTypes.number
 };
 
 Comment.defaultProps = {
@@ -93,7 +96,8 @@ Comment.defaultProps = {
   isAuth: false,
   onSignIn: () => {},
   isCurrentUser: false,
-  replyes: []
+  replyes: [],
+  level: 0
 };
 
 export default memo(Comment);

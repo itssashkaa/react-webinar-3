@@ -12,7 +12,7 @@ function CommentForm (props) {
     }
     return (
         <div className={cn()}>
-            <div className={cn('header')}>{props.isReply ? 'Новый комментарий' : 'Новый ответ'}</div>
+            <div className={cn('header')}>{props.isReply ? 'Новый ответ' : 'Новый комментарий'}</div>
             <textarea className={cn('textarea')} onChange={(e) => setCommentText(e.target.value)} value={commentText}></textarea>
             <div className={cn('controls')}>
                 <button onClick={handleSend}>Отправить</button>

@@ -45,7 +45,7 @@
 .Comment-replyes {
     display: flex;
     flex-direction: column;
-    padding-left: 30px;
+    /* padding-left: 30px; */
     width: 100%;
     box-sizing: border-box;
 }
