@@ -8,63 +8,47 @@ import CommentNotLogin from "../comment-not-login";
 
 function CommentsList(props) {
   const cn = bem("CommentsList");
-  
-  const renderItem = () => {
-
-  }
 
   return (
     <div className={cn()}>
-      <div className={cn("header")}>Комментарии ({props.count})</div>
       <div className={cn("body")}>
         {props.comments.map((comment) => (
           <Comment
             key={comment._id}
             comment={comment}
             addComment={props.addComment}
-            isSelected={props.selectedComment === comment._id}
             setSelectedComment={props.setSelectedComment}
             closeReply={props.closeReply}
             isAuth={props.isAuth}
             onSignIn={props.onSignIn}
+            currentUserId={props.currentUserId}
+            selectedComment={props.selectedComment}
           />
         ))}
       </div>
-      {props.selectedComment == props.parentId && (
-        props.isAuth 
-          ? <CommentForm
-          callback={props.addComment}
-          commentText={props.commentText}
-          setCommentText={props.setCommentText}
-          type={'article'}
-          parentId={props.parentId}
-        />
-        : <CommentNotLogin onSignIn={props.onSignIn}/>
-        
-      )}
     </div>
   );
 }
 
 CommentsList.propTypes = {
   comments: PropTypes.array,
-  count: PropTypes.number,
   addComment: PropTypes.func,
   selectedComment: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setSelectedComment: PropTypes.func,
   parentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   closeReply: PropTypes.func,
   isAuth: PropTypes.bool,
-  onSignIn: PropTypes.func
+  onSignIn: PropTypes.func,
+  currentUserId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 CommentsList.defaultProps = {
   comments: [],
-  count: 0,
   addComment: () => {},
   closeReply: () => {},
   isAuth: false,
-  onSignIn: () => {}
+  onSignIn: () => {},
+  currentUserId: '',
 };
 
 export default memo(CommentsList);

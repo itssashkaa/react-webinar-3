@@ -1,6 +1,4 @@
 import { memo, useCallback, useMemo, useState } from "react";
-import CommentsList from "../../components/comments-list";
-import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import Spinner from "../../components/spinner";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +6,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import commentsActions from "../../store-redux/comments/actions";
 import useInit from "../../hooks/use-init";
 import shallowEqual from "shallowequal";
-import CommentForm from "../../components/comment-form";
-import dateFormat from "../../utils/date-format";
 import useSelectorCustom from '../../hooks/use-selector';
+import CommentsBlock from "../../components/comments-block";
 
 function Comments() {
   const params = useParams();
@@ -26,7 +23,6 @@ function Comments() {
     user: state.session.user,
     exists: state.session.exists,
   }));
-  console.log(selectCustom.user);
   const select = useSelector(
     (state) => ({
       waiting: state.comments.waiting,
@@ -35,20 +31,24 @@ function Comments() {
     }),
     shallowEqual
   );
+  console.log(listToTree(select.comments));
 
-  const sortedComments = useMemo(() => {
-    return treeToList(listToTree(select.comments), (comment, level) => ({
-      ...comment,
-      level: level - 1,
-      dateCreate: comment.dateCreate ? dateFormat(comment.dateCreate) : "",
-    })).slice(1);
+  const commentsTree = useMemo(() => {
+    // return treeToList(listToTree(select.comments), (comment, level) => ({
+    //   ...comment,
+    //   level: level - 1,
+    //   dateCreate: comment.dateCreate ? dateFormat(comment.dateCreate) : "",
+    // })).slice(1);
+    return listToTree(select.comments)[0]?.children;
   }, [select.comments]);
 
   const callbacks = {
     // Добавление в корзину
     addComment: useCallback((text, parentId, type) => {
-      dispatch(commentsActions.postComment(text, parentId, type, selectCustom.user.profile?.name));
-      callbacks.closeReply();
+      if(text.trim().length > 0) {
+        dispatch(commentsActions.postComment(text, parentId, type, selectCustom.user.profile?.name));
+        callbacks.closeReply();
+      }
     }, [selectCustom.user]),
     closeReply: useCallback(() => {
       setSelectedComment(params.id);
@@ -60,8 +60,8 @@ function Comments() {
 
   return (
     <Spinner active={select.waiting}>
-      <CommentsList
-        comments={sortedComments}
+      <CommentsBlock
+        comments={commentsTree}
         count={select.count}
         addComment={callbacks.addComment}
         selectedComment={selectedComment}
@@ -70,6 +70,7 @@ function Comments() {
         closeReply={callbacks.closeReply}
         isAuth={selectCustom.exists}
         onSignIn={callbacks.onSignIn}
+        currentUserId={selectCustom.user._id}
       />
     </Spinner>
   );
